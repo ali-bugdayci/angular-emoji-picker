@@ -88,7 +88,10 @@
   .emoji-popover .emoji-popover-content {
     padding: 9px 14px;
   }
-@media all and (-webkit-min-device-pixel-ratio:1),all and (min--moz-device-pixel-ratio:1),all and (-o-min-device-pixel-ratio:1),all and (min-device-pixel-ratio:1),all and (min-resolution:96dpi) {
+  
+  .emoji-picker { background: transparent url(../img/emojis.png) 0 0 no-repeat; }
+
+/* @media all and (-webkit-min-device-pixel-ratio:1),all and (min--moz-device-pixel-ratio:1),all and (-o-min-device-pixel-ratio:1),all and (min-device-pixel-ratio:1),all and (min-resolution:96dpi) {
   .emoji-picker { background: transparent url(../img/emojis.png) 0 0 no-repeat; }
 }
 @media all and (-webkit-min-device-pixel-ratio:1.5),all and (-o-min-device-pixel-ratio:3/2),all and (min-device-pixel-ratio:1.5),all and (min-resolution:144dpi) {
@@ -96,7 +99,7 @@
     background: transparent url(../img/emojis@2x.png) 0 0 no-repeat;
     background-size: 27776px 22px;
   }
-}
+} */
 @-moz-document url-prefix() {
   .emoji-picker { background: transparent url(../img/emojis.png) 0 0 no-repeat; }
 }
