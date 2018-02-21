@@ -89,19 +89,19 @@
     padding: 9px 14px;
   }
   
-  .emoji-picker { background: transparent url(../img/emojis.png) 0 0 no-repeat; }
+  .emoji-picker { background: transparent url(../images/emojis.png) 0 0 no-repeat; }
 
 /* @media all and (-webkit-min-device-pixel-ratio:1),all and (min--moz-device-pixel-ratio:1),all and (-o-min-device-pixel-ratio:1),all and (min-device-pixel-ratio:1),all and (min-resolution:96dpi) {
-  .emoji-picker { background: transparent url(../img/emojis.png) 0 0 no-repeat; }
+  .emoji-picker { background: transparent url(../images/emojis.png) 0 0 no-repeat; }
 }
 @media all and (-webkit-min-device-pixel-ratio:1.5),all and (-o-min-device-pixel-ratio:3/2),all and (min-device-pixel-ratio:1.5),all and (min-resolution:144dpi) {
   .emoji-picker {
-    background: transparent url(../img/emojis@2x.png) 0 0 no-repeat;
+    background: transparent url(../images/emojis@2x.png) 0 0 no-repeat;
     background-size: 27776px 22px;
   }
 } */
 @-moz-document url-prefix() {
-  .emoji-picker { background: transparent url(../img/emojis.png) 0 0 no-repeat; }
+  .emoji-picker { background: transparent url(../images/emojis.png) 0 0 no-repeat; }
 }
 .emoji-bowtie { background-position: -5px 0; }
 .emoji-smile { background-position: -37px 0;}
@@ -980,7 +980,7 @@
   display: inline-block;
   width: 24px;
   height: 29px;
-  background: url('../img/emoji-groups.png') no-repeat;
+  background: url('../images/emoji-groups.png') no-repeat;
   background-size: 42px 350px;
   cursor: pointer;
 }
@@ -997,7 +997,7 @@
     color: #d7d7d7;
   }
 .is-1x .emoji-groups .emoji-group {
-  background-image: url('../img/emoji-groups-1x.png');
+  background-image: url('../images/emoji-groups-1x.png');
 }
 
 .emoji-groups .icon-recent { background-position: -9px -306px; }
