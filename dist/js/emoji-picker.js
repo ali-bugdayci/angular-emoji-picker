@@ -21,7 +21,7 @@ angular.module("templates/emoji-button-strap.html", []).run(["$templateCache", f
 
 angular.module("templates/emoji-button.html", []).run(["$templateCache", function ($templateCache) {
   $templateCache.put("templates/emoji-button.html",
-    "<i class=\"emoji-picker emoji-smile\"\n" +
+    "<i class=\"emoji-picker emoji-smile emoji-button\"\n" +
     "   emoji-popover template=\"templates/emoji-popover.html\"\n" +
     "   placement=\"{{ ::placement }}\"\n" +
     "   title=\"{{ ::title }}\"></i>\n" +
@@ -196,7 +196,7 @@ angular.module('vkEmojiPicker').constant('EmojiGroups', (function () {
     'fire', 'hankey', 'thumbsup', 'thumbsdown',
     'ok_hand', 'punch', 'fist', 'v', 'wave', 'hand', 'raised_hand',
     'open_hands', 'point_up', 'point_down', 'point_left', 'point_right',
-    'raised_hands', 'pray', 'point_up_2', 'clap', 'muscle', 'metal', 'fu',
+    'raised_hands', 'pray', 'point_up_2', 'clap', 'muscle', 'fu',
     'walking', 'runner', 'couple', 'family', 'two_men_holding_hands',
     'two_women_holding_hands', 'dancer', 'dancers', 'ok_woman', 'no_good',
     'information_desk_person', 'raising_hand', 'bride_with_veil',
