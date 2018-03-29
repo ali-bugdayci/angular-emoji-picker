@@ -35,7 +35,7 @@
             </md-input-container>
             <md-input-container>
               <label>Message</label>
-              <textarea md-maxlength="150" required ng-model="post.message" columns="1"></textarea>
+              <textarea id="message" md-maxlength="150" required ng-model="post.message" ng-blur="messagePreventBlur()" columns="1"></textarea>
               <div ng-messages="blogPost.rate.$error">
                 <div ng-message="required">Hey, write something</div>
                 <div ng-message="md-maxlength">So much to read, man</div>
@@ -43,7 +43,7 @@
             </md-input-container>
             <section layout="row" layout-sm="row" layout-margin layout-align="center center">
               <md-button class="md-raised md-default">Post</md-button>
-              <span style="margin: 0 20px;" emoji-picker="post.message" placement="right" title="Emoji" recent-limit="12"></span>
+              <span id='emojiPickerSelector' style="margin: 0 20px;" emoji-picker="post.message" placement="right" title="Emoji" recent-limit="12" output-format="unicode" container-id="message" caret-position="{{messageCaretPosition}}" blacklist=":bomb:,:gun:,:hocho:,:hankey:" on-change-func="onSelectedEmoji"></span>
             </section>
           </form>
           <div layout="column">
