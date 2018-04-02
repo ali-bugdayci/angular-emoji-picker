@@ -1359,27 +1359,36 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
         blacklist: '@'
       },
       link: function ($scope, element, attrs) {
+        $scope.applyEmojisBlacklist = function (to) {            
+            var hasRecentBan = false;
+            var banEmojisName = attrs.blacklist.match(/([a-zA-Z0-1]+)/gmi);
+
+            angular.forEach($scope.groups, function (group, groupKey) {
+                var newGroup = group.emoji;
+                angular.forEach(banEmojisName, function (banEmojiName, banEmojiNameKey) {                    
+                    pos = group.emoji.indexOf(banEmojiName)
+                    if (pos > -1) {
+                        newGroup.splice(pos, 1);
+
+                        if (groupKey === 0) 
+                            hasRecentBan = true;
+                    }
+                });
+                $scope.groups[groupKey].emoji = newGroup;
+            });
+
+            if (hasRecentBan) {
+                $scope.groups[0].emoji = [];
+                storage.clear();
+            }
+        };
+
         var recentLimit = parseInt(attrs.recentLimit, 10) || RECENT_LIMIT;
         var outputFormat = attrs.outputFormat || DEFAULT_OUTPUT_FORMAT;
 
         $scope.groups = emojiGroups.groups;
         $scope.selectedGroup = emojiGroups.groups[0];
         $scope.selectedGroup.emoji = storage.getFirst(recentLimit);
-
-        $scope.applyEmojisBlacklist = function () {
-            var banEmojisName = attrs.blacklist.match(/([a-zA-Z0-1]+)/gmi);
-
-            angular.forEach($scope.groups, function (group, groupKey) {
-                var newGroup = group.emoji;
-                angular.forEach(banEmojisName, function (banEmojiName, banEmojiNameKey) {
-                    pos = group.emoji.indexOf(banEmojiName)
-                    if (pos > -1) {
-                        newGroup.splice(pos, 1);
-                    }
-                });
-                $scope.groups[groupKey].emoji = newGroup;
-            });
-        };
 
         if (attrs.blacklist != "") {
             $scope.applyEmojisBlacklist();
