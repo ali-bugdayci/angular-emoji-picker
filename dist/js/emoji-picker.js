@@ -1352,13 +1352,18 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
       templateUrl: templateUrl,
       scope: {
         model: '=emojiPicker',
+        emojiPicker: '@',
         placement: '@',
         title: '@',
         onChangeFunc: '=',
+        containerId: '@',
         caretPosition: '@',
-        blacklist: '@'
+        blacklist: '@',
+        pin: '@'
       },
       link: function ($scope, element, attrs) {
+        $scope.caretPosition = -1;
+
         $scope.applyEmojisBlacklist = function (to) {            
             var hasRecentBan = false;
             var banEmojisName = attrs.blacklist.match(/([a-zA-Z0-1]+)/gmi);
@@ -1394,15 +1399,19 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
             $scope.applyEmojisBlacklist();
         }
 
+        $scope.clearCaretPosition = function () {
+            $scope.caretPosition = -1;
+        }
+
         $scope.append = function (emoji) {
             if ($scope.model == null) {
                 $scope.model = '';
             }
 
-            if (attrs.caretPosition > -1) {
+            if ($scope.caretPosition > -1) {
                 var text = $scope.model;
                 var emojiChar = formatSelectedEmoji(emoji, outputFormat).trim();
-                $scope.model = text.substring(0, attrs.caretPosition) + emojiChar + text.substring(attrs.caretPosition, text.length);
+                $scope.model = text.substring(0, $scope.caretPosition) + emojiChar + text.substring($scope.caretPosition, text.length);
 
             } else {
                 $scope.model += formatSelectedEmoji(emoji, outputFormat);
@@ -1410,6 +1419,8 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
             }
 
             storage.store(emoji);
+
+            $scope.caretPosition += 2;
 
             fireOnChangeFunc();
         };
@@ -1454,6 +1465,11 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
             setTimeout($scope.onChangeFunc);
           }
         }
+
+        var container = document.querySelector('[ng-model="' + $scope.emojiPicker + '"]');
+        container.addEventListener('blur', function(event) {            
+            $scope.caretPosition = container.selectionStart;
+        });        
       }
     };
   }
@@ -1736,11 +1752,18 @@ angular.module('vkEmojiPicker').provider('$emojiPopover', function () {
         scope.placement = options.placement;
 
         scope.$hide = function () {
+          scope.clearCaretPosition();
           $popover.hide();
         };
 
         scope.emojiClicked = function (emoji) {
           scope.append(emoji);
+
+          if (scope.pin || scope.pin == '') {
+            return;
+          }
+
+          scope.clearCaretPosition();
           $popover.hide();
         };
 

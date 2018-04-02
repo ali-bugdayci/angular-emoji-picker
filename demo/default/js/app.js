@@ -10,18 +10,24 @@ angular.module('vkEmojiDefaultExample', [
       author: '',
       title: '',
       message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...'
+    }
+
+    $scope.post1 = {
+      author: '',
+      title: '',
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...'
+    }
+
+    $scope.post2 = {
+      author: '',
+      title: '',
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
     };
 
-    $scope.messageCaretPosition = -1;
-
-    $scope.messagePreventBlur = function () {
-      $scope.messageCaretPosition = document.getElementById('message').selectionStart;
-    }
-
-    $scope.onSelectedEmoji = function () {
-      document.querySelectorAll("#emojiPickerSelector i")[0].click();
-      if ($scope.messageCaretPosition > -1) 
-        $scope.messageCaretPosition += 2;
-    }
+    $scope.post3 = {
+      author: '',
+      title: '',
+      message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...'
+    };
   }
 ]);
