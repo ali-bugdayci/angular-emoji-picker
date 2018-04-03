@@ -1412,6 +1412,7 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
                 var text = $scope.model;
                 var emojiChar = formatSelectedEmoji(emoji, outputFormat).trim();
                 $scope.model = text.substring(0, $scope.caretPosition) + emojiChar + text.substring($scope.caretPosition, text.length);
+                $scope.caretPosition += 2;
 
             } else {
                 $scope.model += formatSelectedEmoji(emoji, outputFormat);
@@ -1419,8 +1420,6 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
             }
 
             storage.store(emoji);
-
-            $scope.caretPosition += 2;
 
             fireOnChangeFunc();
         };
