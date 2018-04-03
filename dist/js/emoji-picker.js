@@ -1395,7 +1395,7 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
         $scope.selectedGroup = emojiGroups.groups[0];
         $scope.selectedGroup.emoji = storage.getFirst(recentLimit);
 
-        if (attrs.blacklist != "") {
+        if (attrs.blacklist && typeof(attrs.blacklist) != "undefined" && attrs.blacklist != "") {
             $scope.applyEmojisBlacklist();
         }
 
