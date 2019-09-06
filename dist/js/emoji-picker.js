@@ -40,11 +40,11 @@ angular.module("templates/emoji-popover-bootstrap.html", []).run(["$templateCach
     "    <span class=\"btn-backspace\" ng-click=\"remove()\">&#x232B;</span>\n" +
     "  </div>\n" +
     "  <div class=\"emojis\">\n" +
-    "     <i class=\"emoji-picker emoji-{{ ::toClassName(emoji) }}\"\n" +
-    "        ng-repeat=\"emoji in selectedGroup.emoji\"\n" +
-    "        ng-click=\"append(emoji)\">\n" +
-    "     </i>\n" +
-    "   </div>\n" +
+    "    <i class=\"emoji-picker emoji-{{ ::toClassName(emoji) }}\"\n" +
+    "      ng-repeat=\"emoji in selectedGroup.emoji\"\n" +
+    "      ng-click=\"append(emoji)\">\n" +
+    "    </i>\n" +
+    "  </div>\n" +
     "</div>\n" +
     "");
 }]);
@@ -67,12 +67,12 @@ angular.module("templates/emoji-popover-strap.html", []).run(["$templateCache", 
     "        </i>\n" +
     "        <span class=\"btn-backspace\" ng-click=\"remove()\">&#x232B;</span>\n" +
     "      </div>\n" +
-    "      <div class=\"emojis\">\n" +    
-    "         <i class=\"emoji-picker emoji-{{ ::toClassName(emoji) }}\"\n" +
-    "            ng-repeat=\"emoji in selectedGroup.emoji\"\n" +
-    "            ng-click=\"append(emoji)\">\n" +
-    "         </i>\n" +
-    "       </div>\n" +
+    "      <div class=\"emojis\">\n" +
+    "        <i class=\"emoji-picker emoji-{{ ::toClassName(emoji) }}\"\n" +
+    "          ng-repeat=\"emoji in selectedGroup.emoji\"\n" +
+    "          ng-click=\"append(emoji)\">\n" +
+    "        </i>\n" +
+    "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
@@ -97,11 +97,11 @@ angular.module("templates/emoji-popover.html", []).run(["$templateCache", functi
     "        <span class=\"btn-backspace\" ng-click=\"remove()\">&#x232B;</span>\n" +
     "      </div>\n" +
     "      <div class=\"emojis\">\n" +
-    "         <i class=\"emoji-picker emoji-{{ ::toClassName(emoji) }}\"\n" +
-    "            ng-repeat=\"emoji in selectedGroup.emoji\"\n" +
-    "            ng-click=\"emojiClicked(emoji)\">\n" +
-    "         </i>\n" +
-    "       </div>\n" +
+    "        <i class=\"emoji-picker emoji-{{ ::toClassName(emoji) }}\"\n" +
+    "          ng-repeat=\"emoji in selectedGroup.emoji\"\n" +
+    "          ng-click=\"emojiClicked(emoji)\">\n" +
+    "      </i>\n" +
+    "      </div>\n" +
     "    </div>\n" +
     "  </div>\n" +
     "</div>\n" +
@@ -1364,28 +1364,29 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
       link: function ($scope, element, attrs) {
         $scope.caretPosition = -1;
 
-        $scope.applyEmojisBlacklist = function (to) {            
-            var hasRecentBan = false;
-            var banEmojisName = attrs.blacklist.match(/([a-zA-Z0-1]+)/gmi);
+        $scope.applyEmojisBlacklist = function (to) {
+          var hasRecentBan = false;
+          var banEmojisName = attrs.blacklist.match(/([a-zA-Z0-1]+)/gmi);
 
-            angular.forEach($scope.groups, function (group, groupKey) {
-                var newGroup = group.emoji;
-                angular.forEach(banEmojisName, function (banEmojiName, banEmojiNameKey) {                    
-                    pos = group.emoji.indexOf(banEmojiName)
-                    if (pos > -1) {
-                        newGroup.splice(pos, 1);
+          angular.forEach($scope.groups, function (group, groupKey) {
+            var newGroup = group.emoji;
+            angular.forEach(banEmojisName, function (banEmojiName, banEmojiNameKey) {
+              pos = group.emoji.indexOf(banEmojiName);
+              if (pos > -1) {
+                newGroup.splice(pos, 1);
 
-                        if (groupKey === 0) 
-                            hasRecentBan = true;
-                    }
-                });
-                $scope.groups[groupKey].emoji = newGroup;
+                if (groupKey === 0) {
+                  hasRecentBan = true;
+                }
+              }
             });
+            $scope.groups[groupKey].emoji = newGroup;
+          });
 
-            if (hasRecentBan) {
-                $scope.groups[0].emoji = [];
-                storage.clear();
-            }
+          if (hasRecentBan) {
+            $scope.groups[0].emoji = [];
+            storage.clear();
+          }
         };
 
         var recentLimit = parseInt(attrs.recentLimit, 10) || RECENT_LIMIT;
@@ -1395,33 +1396,35 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
         $scope.selectedGroup = emojiGroups.groups[0];
         $scope.selectedGroup.emoji = storage.getFirst(recentLimit);
 
-        if (attrs.blacklist && typeof(attrs.blacklist) != "undefined" && attrs.blacklist != "") {
-            $scope.applyEmojisBlacklist();
+        if (attrs.blacklist && typeof(attrs.blacklist) != 'undefined' && attrs.blacklist != '') {
+          $scope.applyEmojisBlacklist();
         }
 
         $scope.clearCaretPosition = function () {
-            $scope.caretPosition = -1;
-        }
+          $scope.caretPosition = -1;
+        };
 
         $scope.append = function (emoji) {
-            if ($scope.model == null) {
-                $scope.model = '';
-            }
+          if ($scope.model == null) {
+            $scope.model = '';
+          }
 
-            if ($scope.caretPosition > -1) {
-                var text = $scope.model;
-                var emojiChar = formatSelectedEmoji(emoji, outputFormat).trim();
-                $scope.model = text.substring(0, $scope.caretPosition) + emojiChar + text.substring($scope.caretPosition, text.length);
-                $scope.caretPosition += 2;
+          if ($scope.caretPosition > -1) {
+            var text = $scope.model;
+            var emojiChar = formatSelectedEmoji(emoji, outputFormat).trim();
+            $scope.model = text.substring(0, $scope.caretPosition)
+              + emojiChar
+              + text.substring($scope.caretPosition, text.length);
+            $scope.caretPosition += 2;
 
-            } else {
-                $scope.model += formatSelectedEmoji(emoji, outputFormat);
-                $scope.model = $scope.model.trim();
-            }
+          } else {
+            $scope.model += formatSelectedEmoji(emoji, outputFormat);
+            $scope.model = $scope.model.trim();
+          }
 
-            storage.store(emoji);
+          storage.store(emoji);
 
-            fireOnChangeFunc();
+          fireOnChangeFunc();
         };
 
         $scope.remove = function () {
@@ -1466,9 +1469,9 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
         }
 
         var container = document.querySelector('[ng-model="' + $scope.emojiPicker + '"]');
-        container.addEventListener('blur', function(event) {            
-            $scope.caretPosition = container.selectionStart;
-        });        
+        container.addEventListener('blur', function(event) {
+          $scope.caretPosition = container.selectionStart;
+        });
       }
     };
   }
