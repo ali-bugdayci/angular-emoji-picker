@@ -19,11 +19,11 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'bower_components/angular/angular.min.js',
-      'bower_components/angular-sanitize/angular-sanitize.min.js',
-      'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/angular-strap/dist/angular-strap.min.js',
-      'bower_components/angular-strap/dist/angular-strap.tpl.min.js',
+      'node_modules/angular/angular.min.js',
+      'node_modules/angular-sanitize/angular-sanitize.min.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      'node_modules/angular-strap/dist/angular-strap.min.js',
+      'node_modules/angular-strap/dist/angular-strap.tpl.min.js',
       'dist/js/emoji-picker.js',
       'tests/**/*.js'
     ],
