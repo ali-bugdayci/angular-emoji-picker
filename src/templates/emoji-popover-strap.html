@@ -14,10 +14,12 @@
         </i>
         <span class="btn-backspace" ng-click="remove()">&#x232B;</span>
       </div>
-      <i class="emoji-picker emoji-{{ ::toClassName(emoji) }}"
-         ng-repeat="emoji in selectedGroup.emoji"
-         ng-click="append(emoji)">
-      </i>
+      <div class="emojis">
+        <i class="emoji-picker emoji-{{ ::toClassName(emoji) }}"
+          ng-repeat="emoji in selectedGroup.emoji"
+          ng-click="append(emoji)">
+        </i>
+      </div>
     </div>
   </div>
 </div>
