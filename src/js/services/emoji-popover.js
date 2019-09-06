@@ -108,11 +108,18 @@ angular.module('vkEmojiPicker').provider('$emojiPopover', function () {
         scope.placement = options.placement;
 
         scope.$hide = function () {
+          scope.clearCaretPosition();
           $popover.hide();
         };
 
         scope.emojiClicked = function (emoji) {
           scope.append(emoji);
+
+          if (scope.pin || scope.pin == '') {
+            return;
+          }
+
+          scope.clearCaretPosition();
           $popover.hide();
         };
 

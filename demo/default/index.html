@@ -43,7 +43,7 @@
             </md-input-container>
             <section layout="row" layout-sm="row" layout-margin layout-align="center center">
               <md-button class="md-raised md-default">Post</md-button>
-              <span style="margin: 0 20px;" emoji-picker="post.message" placement="right" title="Emoji" recent-limit="12" output-format="unicode" blacklist=":bomb:,:gun:,:hocho:,:hankey:"></span>
+              <span id='emojiPickerSelector' style="margin: 0 20px;" emoji-picker="post.message" placement="right" title="Emoji" recent-limit="12" output-format="unicode" container-id="message" caret-position="{{messageCaretPosition}}" blacklist=":bomb:,:gun:,:hocho:,:hankey:" on-change-func="onSelectedEmoji"></span>
             </section>
           </form>
           <div layout="column">

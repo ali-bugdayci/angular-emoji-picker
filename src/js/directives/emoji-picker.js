@@ -20,11 +20,43 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
       templateUrl: templateUrl,
       scope: {
         model: '=emojiPicker',
+        emojiPicker: '@',
         placement: '@',
         title: '@',
-        onChangeFunc: '='
+        onChangeFunc: '=',
+        containerId: '@',
+        caretPosition: '@',
+        blacklist: '@',
+        pin: '@'
       },
       link: function ($scope, element, attrs) {
+        $scope.caretPosition = -1;
+
+        $scope.applyEmojisBlacklist = function (to) {
+          var hasRecentBan = false;
+          var banEmojisName = attrs.blacklist.match(/([a-zA-Z0-1]+)/gmi);
+
+          angular.forEach($scope.groups, function (group, groupKey) {
+            var newGroup = group.emoji;
+            angular.forEach(banEmojisName, function (banEmojiName, banEmojiNameKey) {
+              pos = group.emoji.indexOf(banEmojiName);
+              if (pos > -1) {
+                newGroup.splice(pos, 1);
+
+                if (groupKey === 0) {
+                  hasRecentBan = true;
+                }
+              }
+            });
+            $scope.groups[groupKey].emoji = newGroup;
+          });
+
+          if (hasRecentBan) {
+            $scope.groups[0].emoji = [];
+            storage.clear();
+          }
+        };
+
         var recentLimit = parseInt(attrs.recentLimit, 10) || RECENT_LIMIT;
         var outputFormat = attrs.outputFormat || DEFAULT_OUTPUT_FORMAT;
 
@@ -32,13 +64,32 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
         $scope.selectedGroup = emojiGroups.groups[0];
         $scope.selectedGroup.emoji = storage.getFirst(recentLimit);
 
+        if (attrs.blacklist && typeof(attrs.blacklist) != 'undefined' && attrs.blacklist != '') {
+          $scope.applyEmojisBlacklist();
+        }
+
+        $scope.clearCaretPosition = function () {
+          $scope.caretPosition = -1;
+        };
+
         $scope.append = function (emoji) {
           if ($scope.model == null) {
             $scope.model = '';
           }
 
-          $scope.model += formatSelectedEmoji(emoji, outputFormat);
-          $scope.model = $scope.model.trim();
+          if ($scope.caretPosition > -1) {
+            var text = $scope.model;
+            var emojiChar = formatSelectedEmoji(emoji, outputFormat).trim();
+            $scope.model = text.substring(0, $scope.caretPosition)
+              + emojiChar
+              + text.substring($scope.caretPosition, text.length);
+            $scope.caretPosition += 2;
+
+          } else {
+            $scope.model += formatSelectedEmoji(emoji, outputFormat);
+            $scope.model = $scope.model.trim();
+          }
+
           storage.store(emoji);
 
           fireOnChangeFunc();
@@ -84,6 +135,11 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
             setTimeout($scope.onChangeFunc);
           }
         }
+
+        var container = document.querySelector('[ng-model="' + $scope.emojiPicker + '"]');
+        container.addEventListener('blur', function(event) {
+          $scope.caretPosition = container.selectionStart;
+        });
       }
     };
   }
