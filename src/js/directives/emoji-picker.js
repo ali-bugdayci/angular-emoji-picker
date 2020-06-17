@@ -105,6 +105,12 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
           }
         };
 
+        $scope.hidePopover = function($event) {
+          $scope.$$childHead.isOpen = false;
+          return false;
+        };
+
+
         $scope.toClassName = function (emoji) {
           return emoji.replace(/_/g, '-');
         };

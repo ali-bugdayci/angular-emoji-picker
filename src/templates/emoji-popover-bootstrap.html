@@ -5,7 +5,7 @@
        ng-repeat="group in ::groups"
        ng-click="changeGroup(group)">
     </i>
-    <span class="btn-backspace" ng-click="remove()">&#x232B;</span>
+    <a href="" ng-click="hidePopover($event)" target="_blank" class="glyphicon glyphicon-remove pull-right"> </a>
   </div>
   <div class="emojis">
     <i class="emoji-picker emoji-{{ ::toClassName(emoji) }}"

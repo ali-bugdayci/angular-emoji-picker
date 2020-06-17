@@ -37,7 +37,7 @@ angular.module("templates/emoji-popover-bootstrap.html", []).run(["$templateCach
     "       ng-repeat=\"group in ::groups\"\n" +
     "       ng-click=\"changeGroup(group)\">\n" +
     "    </i>\n" +
-    "    <span class=\"btn-backspace\" ng-click=\"remove()\">&#x232B;</span>\n" +
+    "    <a href=\"\" ng-click=\"hidePopover($event)\" target=\"_blank\" class=\"glyphicon glyphicon-remove pull-right\"> </a>\n" +
     "  </div>\n" +
     "  <div class=\"emojis\">\n" +
     "    <i class=\"emoji-picker emoji-{{ ::toClassName(emoji) }}\"\n" +
@@ -1436,6 +1436,12 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
             fireOnChangeFunc();
           }
         };
+
+        $scope.hidePopover = function($event) {
+          $scope.$$childHead.isOpen = false;
+          return false;
+        };
+
 
         $scope.toClassName = function (emoji) {
           return emoji.replace(/_/g, '-');
