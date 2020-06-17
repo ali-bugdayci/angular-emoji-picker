@@ -107,6 +107,7 @@ angular.module('vkEmojiPicker').directive('emojiPicker', [
 
         $scope.hidePopover = function($event) {
           $scope.$$childHead.isOpen = false;
+          angular.element($event.target).parent().parent().parent().parent().parent().remove();
           return false;
         };
 
