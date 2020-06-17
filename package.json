@@ -1,16 +1,16 @@
 {
-  "name": "angular-emoji-picker-extended",
-  "version": "0.3.8",
+  "name": "angular-emoji-picker-custom",
+  "version": "0.3.14",
   "description": "AngularJS Emoji picker",
   "main": "Gruntfile.js",
   "scripts": {
     "test": "karma start karma.conf.js"
   },
-  "author": "Vadim Kadnikov <terranisu@gmail.com>",
+  "author": "Ali Bugdayci",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/newwaybrazil/angular-emoji-picker.git"
+    "url": "https://github.com/ali-bugdayci/angular-emoji-picker.git"
   },
   "keywords": [
     "angular",
